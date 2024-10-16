@@ -101,7 +101,17 @@ public class Player : MonoBehaviour
         if (rb.velocity.y >= 0)
             return;
 
-        //Collider2D[] colliders =
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(enemyCheck.position, enemyCheckRadius, whatIsEnemy); //it will make a local array and fill it up with all the colloders that will get into the circle on the enemyCheck.position with the enemyCheckRadius
+
+        foreach (var enemy in colliders)
+        {
+            Enemy newEnemy = enemy.GetComponent<Enemy>();
+            if (enemy != null)
+            {
+                newEnemy.Die();
+                Jump();
+            }
+        }
     }
 
     public void RespawnFinished(bool finished)
