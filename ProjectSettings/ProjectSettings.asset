@@ -4,7 +4,7 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 26
-  productGUID: 315c3d7214328b5498a1bc0ca479bdab
+  productGUID: cb5dcf04873413541a4e3d647f512de9
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
@@ -896,10 +896,10 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 0
   windowsGamepadBackendHint: 0
-  cloudProjectId: 0abbec5e-676b-452d-b05d-2cc33d9a70a6
+  cloudProjectId: b3144a4c-a9c2-4d19-8fa2-c7656179f541
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: Multimedia Technology Project
+  projectName: Multimedia Technology Project 2024-10-23_14-28-09
   organizationId: nikosalavanos
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
