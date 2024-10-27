@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -40,4 +41,34 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 4263313235
+    locked: 0
+  - name: Mountains
+    uniqueID: 1315635759
+    locked: 0
+  - name: Graveyard
+    uniqueID: 1093038445
+    locked: 0
+  - name: Foreground
+    uniqueID: 3145362257
+    locked: 0
+  - name: Decor
+    uniqueID: 3722623561
+    locked: 0
+  - name: Grass
+    uniqueID: 2947057537
+    locked: 0
+  - name: Ground
+    uniqueID: 3595929443
+    locked: 0
+  - name: Target
+    uniqueID: 2727504813
+    locked: 0
+  - name: Enemy
+    uniqueID: 932135215
+    locked: 0
+  - name: Player
+    uniqueID: 4246877593
     locked: 0
