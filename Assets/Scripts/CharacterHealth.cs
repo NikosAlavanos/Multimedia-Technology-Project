@@ -21,7 +21,8 @@ public class CharacterHealth : MonoBehaviour
         if (health <= 0)
         {
             character?.Death();
-            Destroy(gameObject); // Destroy the enemy GameObject
+            if (character.CompareTag("Enemy")) Destroy(gameObject);
+            // Destroy(gameObject); // Destroy the enemy GameObject
         }
     }
 }
