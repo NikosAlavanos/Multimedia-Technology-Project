@@ -1,36 +1,46 @@
+using System.Collections;
 using UnityEngine;
 
 public class HeroDamage : MonoBehaviour
 {
     public int damage = 1;
     public HeroKnight knight;
+    private Color originalColor;
+    public float colorChangeDuration = 0.5f; // Time the skeleton stays red
+    public float damageCooldown = 1.0f; // Time between applying damage
+    private float lastDamageTime = -Mathf.Infinity; // Last time damage was applied
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Check if the collider is with an enemy
         if (collision.CompareTag("Enemy"))
         {
-            // Get the CharacterHealth component on the enemy and deal damage
+            // Get the CharacterHealth component on the enemy
             CharacterHealth enemyHealth = collision.GetComponent<CharacterHealth>();
             if (enemyHealth != null && knight.Getm_swordEnabled())
             {
-                enemyHealth.TakeDamage(damage);
-                Debug.Log("Enemy hit for damage!");
-                // Optionally destroy the enemy if it should be removed immediately
-                // Destroy(collision.gameObject);
+                // Start color change coroutine to make the enemy flash red
+                StartCoroutine(ChangeEnemyColor(collision.gameObject));
+
+                // Apply damage only if cooldown has passed
+                if (Time.time >= lastDamageTime + damageCooldown)
+                {
+                    enemyHealth.TakeDamage(damage);
+                    lastDamageTime = Time.time; // Update last damage time
+                    Debug.Log("Enemy hit for damage!");
+                }
             }
         }
     }
 
-    //public void EnableSwordCollider()
-    //{
-    //    // Enable the sword collider during the attack animation
-    //    GetComponent<Collider2D>().enabled = true;
-    //}
-
-    //public void DisableSwordCollider()
-    //{
-    //    // Disable the sword collider after the attack animation
-    //    GetComponent<Collider2D>().enabled = false;
-    //}
+    private IEnumerator ChangeEnemyColor(GameObject enemy)
+    {
+        SpriteRenderer enemyRenderer = enemy.GetComponent<SpriteRenderer>();
+        if (enemyRenderer != null)
+        {
+            originalColor = enemyRenderer.color; // Save original color
+            enemyRenderer.color = Color.red; // Change to red
+            yield return new WaitForSeconds(colorChangeDuration);
+            enemyRenderer.color = originalColor; // Revert to original color
+        }
+    }
 }
