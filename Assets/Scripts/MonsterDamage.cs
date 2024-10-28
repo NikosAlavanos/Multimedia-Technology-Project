@@ -6,6 +6,12 @@ public class MonsterDamage : MonoBehaviour
 {
     public int damage;
     public CharacterHealth health;
+    private EnemyPatrol patrolScript;
+
+    private void Start()
+    {
+        patrolScript = GetComponent<EnemyPatrol>();
+    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -16,7 +22,9 @@ public class MonsterDamage : MonoBehaviour
             {
                 health.TakeDamage(damage);
             }
-            
+
+            // Flip the enemy direction
+            patrolScript.Flip();
         }
     }
 }

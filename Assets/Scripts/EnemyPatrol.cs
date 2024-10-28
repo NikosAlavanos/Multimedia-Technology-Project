@@ -1,8 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Unity.PlasticSCM.Editor.WebApi;
-using UnityEditor;
 using UnityEngine;
 
 public class EnemyPatrol : MonoBehaviour
@@ -14,39 +11,37 @@ public class EnemyPatrol : MonoBehaviour
     public Transform wallPoint; // Check point for wall detection
     public float distance = 1f; // Distance to check for ground and walls
     private bool facingRight = false;
-    // Start is called before the first frame update
-    void Start()
-    {
 
-    }
+    public float flipCooldown = 1f; // Time in seconds before flipping is allowed again
+    private float lastFlipTime = 0f; // Tracks the last time a flip occurred
 
-    // Update is called once per frame
     void Update()
     {
-        // Move the enemy
-        transform.Translate(Vector2.left * speed * Time.deltaTime);
-
-        // Raycast to check for ground below
-        RaycastHit2D groundHitInfo = Physics2D.Raycast(groundPoint.position, Vector2.down, distance, groundLayer);
-
-        // Raycast to check for walls in front
-        RaycastHit2D wallHitInfo = Physics2D.Raycast(wallPoint.position, facingRight ? Vector2.right : Vector2.left, distance, wallLayer);
-        
-        if (wallHitInfo || !groundHitInfo)
+        // Skip patrol flip check if within cooldown
+        if (Time.time - lastFlipTime >= flipCooldown)
         {
-            if (facingRight)
+            // Move the enemy
+            transform.Translate(Vector2.left * speed * Time.deltaTime);
+
+            // Raycast to check for ground below
+            RaycastHit2D groundHitInfo = Physics2D.Raycast(groundPoint.position, Vector2.down, distance, groundLayer);
+
+            // Raycast to check for walls in front
+            RaycastHit2D wallHitInfo = Physics2D.Raycast(wallPoint.position, facingRight ? Vector2.right : Vector2.left, distance, wallLayer);
+
+            if (wallHitInfo || !groundHitInfo)
             {
-                // Flip the enemy to the left
-                transform.eulerAngles = new Vector3(0, -180, 0);
-                facingRight = false;
-            }
-            else
-            {
-                // Flip enemy to the right
-                transform.eulerAngles = new Vector3(0, 0 , 0);
-                facingRight = true;
+                Flip();
             }
         }
+    }
+
+    public void Flip()
+    {
+        // Toggle facing direction and reset cooldown timer
+        facingRight = !facingRight;
+        transform.eulerAngles = facingRight ? new Vector3(0, 0, 0) : new Vector3(0, -180, 0);
+        lastFlipTime = Time.time;
     }
 
     private void OnDrawGizmosSelected()
