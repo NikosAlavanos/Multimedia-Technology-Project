@@ -11,7 +11,12 @@ public class MonsterDamage : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            health.TakeDamage(damage);
+            HeroKnight hero = collision.gameObject.GetComponent<HeroKnight>();
+            if (hero != null && !hero.IsBlocking)
+            {
+                health.TakeDamage(damage);
+            }
+            
         }
     }
 }

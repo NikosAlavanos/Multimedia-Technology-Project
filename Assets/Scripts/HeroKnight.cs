@@ -30,6 +30,8 @@ public class HeroKnight : Character
     private float m_rollCurrentTime;
     private bool m_isDead = false;
     private bool m_swordEnabled = false;
+    public bool IsBlocking => m_animator.GetBool("IdleBlock");
+
 
     public bool Getm_swordEnabled()
     { 
@@ -127,6 +129,9 @@ public class HeroKnight : Character
         //Attack
         else if (Input.GetMouseButtonDown(0) && m_timeSinceAttack > 0.25f && !m_rolling)
         {
+            // Disable blocking during attack
+            m_animator.SetBool("IdleBlock", false);
+
             m_currentAttack++;
 
             // Loop back to one after third attack
@@ -145,6 +150,12 @@ public class HeroKnight : Character
 
             // Reset timer
             m_timeSinceAttack = 0.0f;
+        }
+
+        // Allow blocking to resume only when the player releases the attack button
+        else if (Input.GetMouseButton(0))
+        {
+            if (Input.GetMouseButton(1)) m_animator.SetBool("IdleBlock", true);
         }
 
         // Block
