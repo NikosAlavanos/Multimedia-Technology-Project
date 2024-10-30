@@ -66,6 +66,9 @@ TagManager:
   - name: Target
     uniqueID: 2727504813
     locked: 0
+  - name: Item
+    uniqueID: 2451892417
+    locked: 0
   - name: Enemy
     uniqueID: 932135215
     locked: 0
