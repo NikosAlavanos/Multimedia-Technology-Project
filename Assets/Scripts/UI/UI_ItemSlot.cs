@@ -14,6 +14,8 @@ public class UI_ItemSlot : MonoBehaviour
     {
         item = _newItem;
 
+        itemImage.color = Color.white;
+
         if (itemImage != null)
         {
             itemImage.sprite = item.data.icon; //assigning sprite of the image to the icon of the item

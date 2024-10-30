@@ -1,9 +1,16 @@
 using UnityEngine;
 
+public enum ItemType
+{
+    Material,
+    Equipment
+}
+
 [CreateAssetMenu(fileName = "New Item Data", menuName = "Data/Item")] //create default file Name
 
 public class ItemData : ScriptableObject
 {
-    public string itemaName;
+    public ItemType itemType;
+    public string itemName;
     public Sprite icon;
 }

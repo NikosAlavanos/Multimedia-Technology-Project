@@ -9,7 +9,7 @@ public class itemObject : MonoBehaviour
     private void OnValidate()
     {
         GetComponent<SpriteRenderer>().sprite = itemData.icon;
-        gameObject.name = "Item object - " + itemData.itemaName;
+        gameObject.name = "Item object - " + itemData.itemName;
     }
 
 
