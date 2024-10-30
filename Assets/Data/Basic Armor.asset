@@ -9,8 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bd5ea3adf797d04f9dff8b7fa409d18, type: 3}
-  m_Name: Gemstone
+  m_Script: {fileID: 11500000, guid: 9c3229174841dbf47afbe13d5db21154, type: 3}
+  m_Name: Basic Armor
   m_EditorClassIdentifier: 
-  itemaName: Gemstone Orange
-  icon: {fileID: 21300000, guid: 451b886711f73a54ab4aa44b22a2378c, type: 3}
+  itemType: 1
+  itemName: Basic Armor
+  icon: {fileID: 21300000, guid: c68f46c95b1162847841a872b431488f, type: 3}
+  equipmentType: 1

@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2bd5ea3adf797d04f9dff8b7fa409d18, type: 3}
-  m_Name: Gold
+  m_Name: Gemstone Orange
   m_EditorClassIdentifier: 
   itemType: 0
-  itemName: Gold
-  icon: {fileID: 21300000, guid: 204f3fea9dacc5940a98cbe6357665c0, type: 3}
+  itemName: Gemstone Orange
+  icon: {fileID: 21300000, guid: 451b886711f73a54ab4aa44b22a2378c, type: 3}
