@@ -27,6 +27,9 @@ public class HeroDamage : MonoBehaviour
                     enemyHealth.TakeDamage(damage);
                     lastDamageTime = Time.time; // Update last damage time
                     Debug.Log("Enemy hit for damage!");
+
+                    // Flip the enemy
+                    FlipEnemy(collision.gameObject);
                 }
             }
         }
@@ -41,6 +44,22 @@ public class HeroDamage : MonoBehaviour
             enemyRenderer.color = Color.red; // Change to red
             yield return new WaitForSeconds(colorChangeDuration);
             enemyRenderer.color = originalColor; // Revert to original color
+        }
+    }
+
+    private void FlipEnemy(GameObject enemy)
+    {
+        // Get the EnemyPatrol script from the enemy
+        EnemyPatrol enemyPatrol = enemy.GetComponent<EnemyPatrol>();
+        if (enemyPatrol != null)
+        {
+            // Flip the enemy direction
+            enemyPatrol.dir *= -1;
+
+            // Flip the enemy sprite by inverting the X scale
+            Vector3 scale = enemy.transform.localScale;
+            scale.x *= -1;
+            enemy.transform.localScale = scale;
         }
     }
 }

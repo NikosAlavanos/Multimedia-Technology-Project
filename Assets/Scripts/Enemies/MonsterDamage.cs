@@ -24,7 +24,18 @@ public class MonsterDamage : MonoBehaviour
             }
 
             // Flip the enemy direction
-            patrolScript.Flip();
+            FlipEnemyDirection();
         }
+    }
+
+    private void FlipEnemyDirection()
+    {
+        // Reverse the patrol direction
+        patrolScript.dir *= -1;
+
+        // Flip the enemy by inverting the X scale
+        Vector3 scale = transform.localScale;
+        scale.x *= -1;
+        transform.localScale = scale;
     }
 }
