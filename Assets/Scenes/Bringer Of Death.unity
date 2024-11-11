@@ -4179,6 +4179,7 @@ GameObject:
   - component: {fileID: 1536967899}
   - component: {fileID: 1536967900}
   - component: {fileID: 1536967901}
+  - component: {fileID: 1536967902}
   m_Layer: 0
   m_Name: BringerOfDeath
   m_TagString: Enemy
@@ -4195,7 +4196,7 @@ Transform:
   m_GameObject: {fileID: 1536967891}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.55, z: 0}
+  m_LocalPosition: {x: 0, y: -1.46, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -4389,11 +4390,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackDamage: 4
   enragedAttackDamage: 6
-  attackOffset: {x: 0, y: 0, z: 0}
-  attackRange: 1
+  attackOffset: {x: -0.99, y: 0.21, z: 0}
+  attackRange: 1.5
   attackMask:
     serializedVersion: 2
     m_Bits: 128
+--- !u!114 &1536967902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1536967891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be890df3e83b86e4fb24607c01d4b484, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 15
+  health: 0
+  character: {fileID: 0}
 --- !u!224 &1571977092 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7848003307580614585, guid: 377c46f1767bbe04d9a6110b5fb00688, type: 3}
