@@ -23,16 +23,16 @@ public class BossWeapon : MonoBehaviour
             HeroKnight hero = colInfo.GetComponent<HeroKnight>();
             if (hero != null)
             {
-                Debug.Log("Player detected by BossWeapon"); // Debug log
+                // Debug.Log("Player detected by BossWeapon"); // Debug log
                 colInfo.GetComponent<HeroKnight>().Hurt(attackDamage);
             }
             else
             {
-                Debug.LogWarning("Detected collider '" + colInfo.name + "' does not have a HeroKnight component.");
+                // Debug.LogWarning("Detected collider '" + colInfo.name + "' does not have a HeroKnight component.");
             }
         }
         else{
-            Debug.LogWarning("No target in range");
+            // Debug.LogWarning("No target in range");
         }
    }
 

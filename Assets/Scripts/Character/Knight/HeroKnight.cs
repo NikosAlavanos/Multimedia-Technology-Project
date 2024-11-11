@@ -26,7 +26,7 @@ public class HeroKnight : MonoBehaviour
     public int maxHealth = 100;
     public int currentHealth;
 
-
+   
     private bool m_isWallSliding = false;
     private bool m_grounded = false;
     private bool m_rolling = false;
@@ -62,18 +62,41 @@ public class HeroKnight : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (m_isDead) return;
+        // if (m_isDead) return;
 
         // Increase timer that controls attack combo
         m_timeSinceAttack += Time.deltaTime;
 
         // Increase timer that checks roll duration
         if (m_rolling)
+        {
             m_rollCurrentTime += Time.deltaTime;
 
-        // Disable rolling if timer extends duration
-        if (m_rollCurrentTime > m_rollDuration)
-            m_rolling = false;
+            // Disable rolling if timer extends duration
+            if (m_rollCurrentTime > m_rollDuration + 0.3) // Add some extra seconds to m_rollDuration to not stuck bellow enemy
+            {
+                // // Check if the player is near any enemies and apply push force
+                // Collider2D[] enemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
+                // foreach (Collider2D enemy in enemies)
+                // {
+                //     if (enemy != null && Vector2.Distance(transform.position, enemy.transform.position) < 2.0f) // Check distance threshold (2.0f)
+                //     {
+                //         Vector2 pushDirection = (transform.position.x > enemy.transform.position.x) ? Vector2.right : Vector2.left;  // Direction away from the enemy
+                //         m_body2d.AddForce(pushDirection * m_rollForce  + new Vector2(20, 20), ForceMode2D.Impulse); // Apply a small push force
+                //         Debug.Log("Pushing player");
+                //         break; // Stop after pushing away from one enemy, you can also loop if you want to apply force for multiple enemies
+                //     }
+                // }
+
+
+                // Restore the original layer to re-enable collisions with enemies
+                gameObject.layer = LayerMask.NameToLayer("Player");
+
+                // Stop rolling
+                m_rolling = false;
+            }
+        }
+
 
         //Check if character just landed on the ground
         if (!m_grounded && m_groundSensor.State())
@@ -179,7 +202,15 @@ public class HeroKnight : MonoBehaviour
         {
             m_rolling = true;
             m_animator.SetTrigger("Roll");
+
+            // Switch to the NonCollidingLayer to ignore enemy collisions 
+            gameObject.layer = LayerMask.NameToLayer("NonCollidingWithEnemies");
+
+            // Apply roll force
             m_body2d.velocity = new Vector2(m_facingDirection * m_rollForce, m_body2d.velocity.y);
+
+            // Reset roll timer
+            m_rollCurrentTime = 0.0f;
         }
 
 
@@ -264,21 +295,23 @@ public class HeroKnight : MonoBehaviour
 
     public void Hurt(int damage)
     {
-
-        // Play hurt animation
-        m_animator.SetTrigger("Hurt");
-
-        // Reduce the life of the HeroKnight
-        currentHealth -= damage;
-
-        // If the HeroKnight runs out of health he dies
-        if (currentHealth <= 0)
+        if (!IsBlocking)
         {
-            Death();
-        }
-        if (!m_rolling)
-        {
-            
+            if (!m_rolling)
+            {
+                // Play hurt animation
+                m_animator.SetTrigger("Hurt");
+
+                // Reduce the life of the HeroKnight
+                currentHealth -= damage;
+
+                // If the HeroKnight runs out of health he dies
+                if (currentHealth <= 0)
+                {
+                    Death();
+                }
+                
+            }
         }
     }
 
