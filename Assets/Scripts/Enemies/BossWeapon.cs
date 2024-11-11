@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class BossWeapon : MonoBehaviour
 {
-   public int attackDamage = 4;
-   public int enragedAttackDamage = 6;
+   public int attackDamage = 40;
+   public int enragedAttackDamage = 60;
 
    public Vector3 attackOffset;
    public float attackRange = 1f;
@@ -20,8 +20,16 @@ public class BossWeapon : MonoBehaviour
         Collider2D colInfo = Physics2D.OverlapCircle(pos, attackRange, attackMask);
         if (colInfo != null)
         {
-            Debug.Log("Player detected by BossWeapon"); // Debug log
-            colInfo.GetComponent<CharacterHealth>().TakeDamage(attackDamage);
+            HeroKnight hero = colInfo.GetComponent<HeroKnight>();
+            if (hero != null)
+            {
+                Debug.Log("Player detected by BossWeapon"); // Debug log
+                colInfo.GetComponent<HeroKnight>().Hurt(attackDamage);
+            }
+            else
+            {
+                Debug.LogWarning("Detected collider '" + colInfo.name + "' does not have a HeroKnight component.");
+            }
         }
         else{
             Debug.LogWarning("No target in range");

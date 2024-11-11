@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class HeroKnight : Character
+public class HeroKnight : MonoBehaviour
 {
 
     [SerializeField] float m_speed = 4.0f;
@@ -9,8 +9,6 @@ public class HeroKnight : Character
     [SerializeField] float m_rollForce = 6.0f;
     [SerializeField] bool m_noBlood = false;
     [SerializeField] GameObject m_slideDust;
-    [SerializeField] private CapsuleCollider2D swordCollider; // Reference to the sword collider
-
 
     private Animator m_animator;
     private Rigidbody2D m_body2d;
@@ -19,6 +17,16 @@ public class HeroKnight : Character
     private Sensor_HeroKnight m_wallSensorR2;
     private Sensor_HeroKnight m_wallSensorL1;
     private Sensor_HeroKnight m_wallSensorL2;
+    public Transform attackPoint;
+    public LayerMask enemyLayers;
+    public float attackRange = 0.5f;
+    public int attackDamage = 20;
+    public float attackRate = 2f;
+    float nextAttackTime = 0f;
+    public int maxHealth = 100;
+    public int currentHealth;
+
+
     private bool m_isWallSliding = false;
     private bool m_grounded = false;
     private bool m_rolling = false;
@@ -41,6 +49,7 @@ public class HeroKnight : Character
     // Use this for initialization
     void Start()
     {
+        currentHealth = maxHealth;
         m_animator = GetComponent<Animator>();
         m_body2d = GetComponent<Rigidbody2D>();
         m_groundSensor = transform.Find("GroundSensor").GetComponent<Sensor_HeroKnight>();
@@ -48,9 +57,6 @@ public class HeroKnight : Character
         m_wallSensorR2 = transform.Find("WallSensor_R2").GetComponent<Sensor_HeroKnight>();
         m_wallSensorL1 = transform.Find("WallSensor_L1").GetComponent<Sensor_HeroKnight>();
         m_wallSensorL2 = transform.Find("WallSensor_L2").GetComponent<Sensor_HeroKnight>();
-        // Initialize swordCollider if not assigned in the Inspector
-        if (swordCollider == null)
-            swordCollider = GetComponent<CapsuleCollider2D>();
     }
 
     // Update is called once per frame
@@ -91,16 +97,12 @@ public class HeroKnight : Character
         {
             GetComponent<SpriteRenderer>().flipX = false;
             m_facingDirection = 1;
-            // move sword to the right
-            swordCollider.offset = new Vector2(1.8f, swordCollider.offset.y);
         }
 
         else if (inputX < 0)
         {
             GetComponent<SpriteRenderer>().flipX = true;
             m_facingDirection = -1;
-            // move sword to the left
-            swordCollider.offset = new Vector2(-1.8f, swordCollider.offset.y);
         }
 
         // Move
@@ -129,27 +131,31 @@ public class HeroKnight : Character
         //Attack
         else if (Input.GetMouseButtonDown(0) && m_timeSinceAttack > 0.25f && !m_rolling)
         {
-            // Disable blocking during attack
-            m_animator.SetBool("IdleBlock", false);
+            if (Time.time >= nextAttackTime)
+            {
+                // Disable blocking during attack
+                m_animator.SetBool("IdleBlock", false);
 
-            m_currentAttack++;
+                m_currentAttack++;
 
-            // Loop back to one after third attack
-            if (m_currentAttack > 3)
-                m_currentAttack = 1;
+                // Loop back to one after third attack
+                if (m_currentAttack > 3)
+                    m_currentAttack = 1;
 
-            // Reset Attack combo if time since last attack is too large
-            if (m_timeSinceAttack > 1.0f)
-                m_currentAttack = 1;
+                // Reset Attack combo if time since last attack is too large
+                if (m_timeSinceAttack > 1.0f)
+                    m_currentAttack = 1;
 
-            // Call one of three attack animations "Attack1", "Attack2", "Attack3"
-            m_animator.SetTrigger("Attack" + m_currentAttack);
+                // Call one of three attack animations "Attack1", "Attack2", "Attack3"
+                m_animator.SetTrigger("Attack" + m_currentAttack);
+            
+                // Attack the enemy
+                Attack();
+                nextAttackTime = Time.time + 1f / attackRate;
 
-            //// Enable the sword collider during the attack
-            //EnableSwordCollider();
-
-            // Reset timer
-            m_timeSinceAttack = 0.0f;
+                // Reset timer
+                m_timeSinceAttack = 0.0f;
+            }
         }
 
         // Allow blocking to resume only when the player releases the attack button
@@ -225,41 +231,58 @@ public class HeroKnight : Character
         }
     }
 
-    // Method to enable the sword collider
-    public void EnableSwordCollider()
-    {
-        swordCollider.enabled = true; // Enable the collider when attacking
-        Debug.Log("Sword Collider Enabled");
-    }
-
-    // Method to disable the sword collider
-    public void DisableSwordCollider()
-    {
-        swordCollider.enabled = false; // Disable the collider after the attack
-        Debug.Log("Sword Collider Disabled");
-    }
 
     // Animation event for when the attack animation starts
     void AE_StartAttack()
     {
-        EnableSwordCollider(); // Enable the collider when the attack animation starts
         m_swordEnabled = true;
     }
 
     // Animation event for when the attack animation ends
     void AE_EndAttack()
     {
-        DisableSwordCollider(); // Disable the collider when the attack animation ends
         m_swordEnabled = false;
     }
 
-    public override void Hurt()
+    public void Attack()
     {
-        if (!m_rolling)
-            m_animator.SetTrigger("Hurt");
+        // Deteck enemies in range of attack
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
+        
+        // Damage them
+        foreach (Collider2D enemy in hitEnemies)
+        {
+            enemy.GetComponent<Enemy>().TakeDamage(attackDamage);
+        }
     }
 
-    public override void Death()
+    // Draw the range of attack
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+    }
+
+    public void Hurt(int damage)
+    {
+
+        // Play hurt animation
+        m_animator.SetTrigger("Hurt");
+
+        // Reduce the life of the HeroKnight
+        currentHealth -= damage;
+
+        // If the HeroKnight runs out of health he dies
+        if (currentHealth <= 0)
+        {
+            Death();
+        }
+        if (!m_rolling)
+        {
+            
+        }
+    }
+
+    public void Death()
     {
         if (!m_rolling && !m_isDead)
         {
@@ -268,6 +291,10 @@ public class HeroKnight : Character
 
             // Set m_isDead to true to prevent further input handling
             m_isDead = true;
+
+            // Disable the player
+            GetComponent<Collider2D>().enabled = false;
+            this.enabled = false;
         }
     }
 }

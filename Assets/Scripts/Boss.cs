@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Boss : Character
+public class Boss : MonoBehaviour
 {
     public Transform player;
     public bool isFlipped = false;

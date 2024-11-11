@@ -5,7 +5,7 @@ using UnityEngine;
 public class MonsterDamage : MonoBehaviour
 {
     public int damage;
-    public CharacterHealth health;
+    public Enemy health;
     private EnemyPatrol patrolScript;
 
     private void Start()
