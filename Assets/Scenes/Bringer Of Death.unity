@@ -4259,9 +4259,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be890df3e83b86e4fb24607c01d4b484, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
+  maxHealth: 20
   health: 20
-  character: {fileID: 0}
+  character: {fileID: 1536967900}
 --- !u!50 &1536967897
 Rigidbody2D:
   serializedVersion: 4
@@ -4409,7 +4409,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 15
   health: 0
-  character: {fileID: 0}
+  character: {fileID: 1536967900}
 --- !u!224 &1571977092 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7848003307580614585, guid: 377c46f1767bbe04d9a6110b5fb00688, type: 3}
