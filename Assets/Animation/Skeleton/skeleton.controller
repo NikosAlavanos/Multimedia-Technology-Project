@@ -93,8 +93,6 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  rayOffset: {x: 0.5, y: 0.5}
-  groundDetectionObject: {fileID: 0}
   patrolDistance: 5
   patrolSpeed: 0.8
 --- !u!91 &9100000

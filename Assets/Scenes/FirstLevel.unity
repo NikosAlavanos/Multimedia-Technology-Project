@@ -4886,8 +4886,16 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8087212995117874151, guid: 3e14bf7b39e2c2940a826eb72e6b8043, type: 3}
+      propertyPath: pushAwayForce
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8087212995117874151, guid: 3e14bf7b39e2c2940a826eb72e6b8043, type: 3}
       propertyPath: enemyLayers.m_Bits
       value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 8087212995117874151, guid: 3e14bf7b39e2c2940a826eb72e6b8043, type: 3}
+      propertyPath: enemyDetectionRange
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8119722759780954102, guid: 3e14bf7b39e2c2940a826eb72e6b8043, type: 3}
       propertyPath: m_Layer
@@ -39750,6 +39758,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1509780561}
+    - target: {fileID: 9166736472674702135, guid: 2cd08ecdaf9d44a1a921c9565665b0f8, type: 3}
+      propertyPath: maxHealth
+      value: 60
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

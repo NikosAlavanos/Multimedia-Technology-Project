@@ -78,20 +78,6 @@ public class HeroKnight : MonoBehaviour
             // Disable rolling if timer extends duration
             if (m_rollCurrentTime > m_rollDuration + 0.3) // Add some extra seconds to m_rollDuration to not stuck bellow enemy
             {
-                // // Check if the player is near any enemies and apply push force
-                // Collider2D[] enemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
-                // foreach (Collider2D enemy in enemies)
-                // {
-                //     if (enemy != null && Vector2.Distance(transform.position, enemy.transform.position) < 2.0f) // Check distance threshold (2.0f)
-                //     {
-                //         Vector2 pushDirection = (transform.position.x > enemy.transform.position.x) ? Vector2.right : Vector2.left;  // Direction away from the enemy
-                //         m_body2d.AddForce(pushDirection * m_rollForce  + new Vector2(20, 20), ForceMode2D.Impulse); // Apply a small push force
-                //         Debug.Log("Pushing player");
-                //         break; // Stop after pushing away from one enemy, you can also loop if you want to apply force for multiple enemies
-                //     }
-                // }
-
-
                 // Restore the original layer to re-enable collisions with enemies
                 gameObject.layer = LayerMask.NameToLayer("Player");
 
