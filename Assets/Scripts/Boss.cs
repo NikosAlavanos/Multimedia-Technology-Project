@@ -9,7 +9,7 @@ public class Boss : MonoBehaviour
 
     public void LookAtPlayer()
     {
-        Vector3 flipped = transform.localScale;
+        var flipped = transform.localScale;
         flipped.z *= -1f;
 
         if (transform.position.x > player.position.x && isFlipped)

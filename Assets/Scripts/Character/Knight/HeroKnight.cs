@@ -38,6 +38,8 @@ public class HeroKnight : MonoBehaviour
     private float m_rollCurrentTime;
     private bool m_isDead = false;
     private bool m_swordEnabled = false;
+    private SpriteRenderer _spriteRenderer;
+    private SpriteRenderer _spriteRenderer1;
     public bool IsBlocking => m_animator.GetBool("IdleBlock");
 
 
@@ -49,6 +51,7 @@ public class HeroKnight : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        _spriteRenderer = GetComponent<SpriteRenderer>();
         currentHealth = maxHealth;
         m_animator = GetComponent<Animator>();
         m_body2d = GetComponent<Rigidbody2D>();
@@ -113,20 +116,25 @@ public class HeroKnight : MonoBehaviour
         }
 
         // -- Handle input and movement --
-        float inputX = Input.GetAxis("Horizontal");
+        var inputX = Input.GetAxis("Horizontal");
 
-        // Swap direction of sprite depending on walk direction
-        if (inputX > 0)
+        switch (inputX)
         {
-            GetComponent<SpriteRenderer>().flipX = false;
-            m_facingDirection = 1;
+            // Swap direction of sprite depending on walk direction
+            case > 0:
+                _spriteRenderer.flipX = false;
+                m_facingDirection = 1;
+                break;
+            case < 0:
+                _spriteRenderer.flipX = true;
+                m_facingDirection = -1;
+                break;
         }
-
-        else if (inputX < 0)
-        {
-            GetComponent<SpriteRenderer>().flipX = true;
-            m_facingDirection = -1;
-        }
+        
+        // Flip attackPoint with player's direction
+        attackPoint.localPosition = new Vector3(Mathf.Abs(attackPoint.localPosition.x) * m_facingDirection, 
+            attackPoint.localPosition.y, 
+            attackPoint.localPosition.z);
 
         // Move
         if (!m_rolling)
@@ -154,31 +162,29 @@ public class HeroKnight : MonoBehaviour
         //Attack
         else if (Input.GetMouseButtonDown(0) && m_timeSinceAttack > 0.25f && !m_rolling)
         {
-            if (Time.time >= nextAttackTime)
-            {
-                // Disable blocking during attack
-                m_animator.SetBool("IdleBlock", false);
+            if (!(Time.time >= nextAttackTime)) return;
+            // Disable blocking during attack
+            m_animator.SetBool("IdleBlock", false);
 
-                m_currentAttack++;
+            m_currentAttack++;
 
-                // Loop back to one after third attack
-                if (m_currentAttack > 3)
-                    m_currentAttack = 1;
+            // Loop back to one after third attack
+            if (m_currentAttack > 3)
+                m_currentAttack = 1;
 
-                // Reset Attack combo if time since last attack is too large
-                if (m_timeSinceAttack > 1.0f)
-                    m_currentAttack = 1;
+            // Reset Attack combo if time since last attack is too large
+            if (m_timeSinceAttack > 1.0f)
+                m_currentAttack = 1;
 
-                // Call one of three attack animations "Attack1", "Attack2", "Attack3"
-                m_animator.SetTrigger("Attack" + m_currentAttack);
+            // Call one of three attack animations "Attack1", "Attack2", "Attack3"
+            m_animator.SetTrigger("Attack" + m_currentAttack);
             
-                // Attack the enemy
-                Attack();
-                nextAttackTime = Time.time + 1f / attackRate;
+            // Attack the enemy
+            Attack();
+            nextAttackTime = Time.time + 1f / attackRate;
 
-                // Reset timer
-                m_timeSinceAttack = 0.0f;
-            }
+            // Reset timer
+            m_timeSinceAttack = 0.0f;
         }
 
         // Allow blocking to resume only when the player releases the attack button
@@ -248,18 +254,13 @@ public class HeroKnight : MonoBehaviour
     {
         Vector3 spawnPosition;
 
-        if (m_facingDirection == 1)
-            spawnPosition = m_wallSensorR2.transform.position;
-        else
-            spawnPosition = m_wallSensorL2.transform.position;
+        spawnPosition = m_facingDirection == 1 ? m_wallSensorR2.transform.position : m_wallSensorL2.transform.position;
 
-        if (m_slideDust != null)
-        {
-            // Set correct arrow spawn position
-            GameObject dust = Instantiate(m_slideDust, spawnPosition, gameObject.transform.localRotation) as GameObject;
-            // Turn arrow in correct direction
-            dust.transform.localScale = new Vector3(m_facingDirection, 1, 1);
-        }
+        if (m_slideDust == null) return;
+        // Set correct arrow spawn position
+        var dust = Instantiate(m_slideDust, spawnPosition, gameObject.transform.localRotation) as GameObject;
+        // Turn arrow in correct direction
+        dust.transform.localScale = new Vector3(m_facingDirection, 1, 1);
     }
 
 
@@ -278,10 +279,10 @@ public class HeroKnight : MonoBehaviour
     public void Attack()
     {
         // Deteck enemies in range of attack
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
+        var hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
         
         // Damage them
-        foreach (Collider2D enemy in hitEnemies)
+        foreach (var enemy in hitEnemies)
         {
             enemy.GetComponent<Enemy>().TakeDamage(attackDamage);
         }
@@ -295,39 +296,32 @@ public class HeroKnight : MonoBehaviour
 
     public void Hurt(int damage)
     {
-        if (!IsBlocking)
+        if (IsBlocking) return;
+        if (m_rolling) return;
+        // Play hurt animation
+        m_animator.SetTrigger("Hurt");
+
+        // Reduce the life of the HeroKnight
+        currentHealth -= damage;
+
+        // If the HeroKnight runs out of health he dies
+        if (currentHealth <= 0)
         {
-            if (!m_rolling)
-            {
-                // Play hurt animation
-                m_animator.SetTrigger("Hurt");
-
-                // Reduce the life of the HeroKnight
-                currentHealth -= damage;
-
-                // If the HeroKnight runs out of health he dies
-                if (currentHealth <= 0)
-                {
-                    Death();
-                }
-                
-            }
+            Death();
         }
     }
 
     public void Death()
     {
-        if (!m_rolling && !m_isDead)
-        {
-            m_animator.SetBool("noBlood", m_noBlood);
-            m_animator.SetTrigger("Death");
+        if (m_rolling || m_isDead) return;
+        m_animator.SetBool("noBlood", m_noBlood);
+        m_animator.SetTrigger("Death");
 
-            // Set m_isDead to true to prevent further input handling
-            m_isDead = true;
+        // Set m_isDead to true to prevent further input handling
+        m_isDead = true;
 
-            // Disable the player
-            GetComponent<Collider2D>().enabled = false;
-            this.enabled = false;
-        }
+        // Disable the player
+        GetComponent<Collider2D>().enabled = false;
+        this.enabled = false;
     }
 }

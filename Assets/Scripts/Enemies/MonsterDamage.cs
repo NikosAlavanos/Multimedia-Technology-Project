@@ -15,17 +15,15 @@ public class MonsterDamage : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (!collision.gameObject.CompareTag("Player")) return;
+        var hero = collision.gameObject.GetComponent<HeroKnight>();
+        if (hero != null && !hero.IsBlocking)
         {
-            HeroKnight hero = collision.gameObject.GetComponent<HeroKnight>();
-            if (hero != null && !hero.IsBlocking)
-            {
-                health.TakeDamage(damage);
-            }
-
-            // Flip the enemy direction
-            FlipEnemyDirection();
+            health.TakeDamage(damage);
         }
+
+        // Flip the enemy direction
+        FlipEnemyDirection();
     }
 
     private void FlipEnemyDirection()
@@ -34,7 +32,7 @@ public class MonsterDamage : MonoBehaviour
         patrolScript.dir *= -1;
 
         // Flip the enemy by inverting the X scale
-        Vector3 scale = transform.localScale;
+        var scale = transform.localScale;
         scale.x *= -1;
         transform.localScale = scale;
     }

@@ -21,17 +21,15 @@ public class EnemyPatrol : MonoBehaviour
     void FixedUpdate()
     {
         // Move the enemy
-        transform.Translate(Vector2.right * speed * Time.deltaTime * dir);
+        transform.Translate(Vector2.right * (speed * Time.deltaTime * dir));
 
         // Check if the enemy has reached the patrol limits
-        if (transform.position.x < startingX || transform.position.x > startingX + range) 
-        {
-            dir *= -1;
+        if (!(transform.position.x < startingX) && !(transform.position.x > startingX + range)) return;
+        dir *= -1;
 
-            // Flip the enemy by inverting the X scale
-            Vector3 scale = transform.localScale;
-            scale.x *= -1;
-            transform.localScale = scale;
-        }
+        // Flip the enemy by inverting the X scale
+        Vector3 scale = transform.localScale;
+        scale.x *= -1;
+        transform.localScale = scale;
     }
 }

@@ -19,7 +19,7 @@ public class BackgroundController : MonoBehaviour
     void Update()
     {
         // Calculate distance background move based on cam movement
-        float distance = cam.transform.position.x * parallaxEffect; // 0 = move with cam || 1 = won't move || 0.5 = half
+        var distance = cam.transform.position.x * parallaxEffect; // 0 = move with cam || 1 = won't move || 0.5 = half
 
         transform.position = new Vector3(startPos + distance, transform.position.y, transform.position.z);
     }
