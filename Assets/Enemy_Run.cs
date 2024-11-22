@@ -27,7 +27,7 @@ public class Enemy_Run : StateMachineBehaviour
     // Track direction of the movement
     private bool movingToLeft = true;
     // Check if the starting position has been initialized
-    private bool spInitialized = false;
+    private bool spInitialized;
     // Flag to track if enemy is on ground
     private bool isGrounded = true;
 
