@@ -13,11 +13,11 @@ public class BossWeapon : MonoBehaviour
 
    public void Attack()
    {
-        Vector3 pos = transform.position;
+        var pos = transform.position;
         pos += transform.right * attackOffset.x;
         pos += transform.up * attackOffset.y;
 
-        Collider2D colInfo = Physics2D.OverlapCircle(pos, attackRange, attackMask);
+        var colInfo = Physics2D.OverlapCircle(pos, attackRange, attackMask);
         if (colInfo != null)
         {
             HeroKnight hero = colInfo.GetComponent<HeroKnight>();
@@ -38,7 +38,7 @@ public class BossWeapon : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        Vector3 pos = transform.position + transform.right * attackOffset.x + transform.up * attackOffset.y;
+        var pos = transform.position + transform.right * attackOffset.x + transform.up * attackOffset.y;
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(pos, attackRange);
     }

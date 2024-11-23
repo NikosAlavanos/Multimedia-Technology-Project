@@ -12,11 +12,22 @@ public class Enemy : MonoBehaviour
     public Transform player;
 
     public bool isFlipped = false;
+    
+    private SpriteRenderer spriteRenderer;
+    private Color originalColor;
+    public float colorChangeDuration = 0.2f;
 
     // Start is called before the first frame update
     void Start()
     {
         currentHealth = maxHealth;
+        
+        // Cache the sprite renderer and original color
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer != null)
+        {
+            originalColor = spriteRenderer.color;
+        }
     }
 
     public void TakeDamage(int damage)
@@ -25,11 +36,29 @@ public class Enemy : MonoBehaviour
 
         // Play hurt animation
         animator.SetTrigger("Hurt");
+        
+        // If the enemy's name is "skeleton", change its color to red
+        if (gameObject.name.ToLower().Contains("skeleton") && spriteRenderer != null)
+        {
+            StartCoroutine(FlashRed());
+        }
 
         if (currentHealth <= 0)
         {
             Die();
         }
+    }
+    
+    IEnumerator FlashRed()
+    {
+        // Change color to red
+        spriteRenderer.color = Color.red;
+
+        // Wait for a short duration
+        yield return new WaitForSeconds(colorChangeDuration);
+
+        // Revert to original color
+        spriteRenderer.color = originalColor;
     }
 
     void Die()

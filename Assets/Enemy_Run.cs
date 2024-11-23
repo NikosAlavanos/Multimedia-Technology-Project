@@ -30,6 +30,8 @@ public class Enemy_Run : StateMachineBehaviour
     private bool spInitialized;
     // Flag to track if enemy is on ground
     private bool isGrounded = true;
+    // Enemy Attack Range
+    private float attackRange;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -56,6 +58,11 @@ public class Enemy_Run : StateMachineBehaviour
         isGrounded = GroundDetected();
 
         ChaseOrPatrol(animator);
+
+        if (Vector2.Distance(player.position, rb.position) <= attackRange)
+        {
+            animator.SetTrigger("Attack");
+        }
     }
 
     private void ChaseOrPatrol(Animator animator)
@@ -149,6 +156,6 @@ public class Enemy_Run : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-       
+       animator.ResetTrigger("Attack");
     }
 }

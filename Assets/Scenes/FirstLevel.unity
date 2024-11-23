@@ -2087,6 +2087,30 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7848003307580614585, guid: 377c46f1767bbe04d9a6110b5fb00688, type: 3}
   m_PrefabInstance: {fileID: 1665340814}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &623218709 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3993591989633914245, guid: 2cd08ecdaf9d44a1a921c9565665b0f8, type: 3}
+  m_PrefabInstance: {fileID: 2256076579658187101}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &623218716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 623218709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f11cad42a419b34f8667a851a320c75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackDamage: 10
+  enragedAttackDamage: 10
+  attackOffset: {x: 0, y: -0.27, z: 0}
+  attackRange: 1.33
+  attackMask:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!224 &633067375 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7848003307580614585, guid: 377c46f1767bbe04d9a6110b5fb00688, type: 3}
@@ -39765,7 +39789,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3993591989633914245, guid: 2cd08ecdaf9d44a1a921c9565665b0f8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 623218716}
   m_SourcePrefab: {fileID: 100100000, guid: 2cd08ecdaf9d44a1a921c9565665b0f8, type: 3}
 --- !u!224 &2389465290980224773
 RectTransform:
