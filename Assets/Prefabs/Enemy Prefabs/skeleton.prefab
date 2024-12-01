@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6398791556631627864}
   - component: {fileID: 4280666611021751692}
   - component: {fileID: 9166736472674702135}
+  - component: {fileID: 1138990242971114187}
   m_Layer: 8
   m_Name: skeleton
   m_TagString: Enemy
@@ -194,6 +195,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 6398791556631627864}
-  maxHealth: 20
+  maxHealth: 60
   player: {fileID: 0}
   isFlipped: 0
+  colorChangeDuration: 0.2
+--- !u!114 &1138990242971114187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3993591989633914245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f11cad42a419b34f8667a851a320c75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackDamage: 10
+  enragedAttackDamage: 10
+  attackOffset: {x: 0, y: -0.27, z: 0}
+  attackRange: 1.33
+  attackMask:
+    serializedVersion: 2
+    m_Bits: 128

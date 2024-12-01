@@ -21,7 +21,7 @@ public class LoadNextScene : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            SceneManager.LoadScene("Bringer Of Death");
+            SceneManager.LoadScene (SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
 }
