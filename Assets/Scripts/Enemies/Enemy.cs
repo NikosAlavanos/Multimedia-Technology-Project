@@ -37,12 +37,15 @@ public class Enemy : MonoBehaviour
         // Play hurt animation
         animator.SetTrigger("Hurt");
         
-        // If the enemy's name is "skeleton", change its color to red
-        if (gameObject.name.ToLower().Contains("skeleton") && spriteRenderer != null)
-        {
-            StartCoroutine(FlashRed());
-        }
+        // // If the enemy's name is "skeleton", change its color to red
+        // if (gameObject.name.ToLower().Contains("skeleton") && spriteRenderer != null)
+        // {
+        //     StartCoroutine(FlashRed());
+        // }
 
+        // Every enemy that is being damaged will flash red
+        StartCoroutine(FlashRed());
+        
         if (currentHealth <= 0)
         {
             Die();
