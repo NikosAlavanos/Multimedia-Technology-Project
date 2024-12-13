@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    [SerializeField] private AudioClip[] damageSoundClips;
     public Animator animator;
 
     public int maxHealth = 100;
@@ -45,6 +46,10 @@ public class Enemy : MonoBehaviour
 
         // Every enemy that is being damaged will flash red
         StartCoroutine(FlashRed());
+        
+        // play sound FX
+        // SoundFXManager.instance.PlaySoundFXClip(damageSoundClip, transform, 1f);
+        SoundFXManager.instance.PlayRandomSoundFXClip(damageSoundClips, transform, 1f);
         
         if (currentHealth <= 0)
         {
