@@ -14,7 +14,7 @@ public class Enemy_Run : StateMachineBehaviour
     
     Transform player;
     Rigidbody2D rb;
-    Enemy enemy;
+    Enemy1 enemy;
 
     // Distance the enemy will move from the start point
     public float patrolDistance = 5f;
@@ -37,7 +37,7 @@ public class Enemy_Run : StateMachineBehaviour
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         // Get the enemy item through animator
-        enemy = animator.GetComponent<Enemy>();
+        enemy = animator.GetComponent<Enemy1>();
         // Get the enemies position
         player = GameObject.FindGameObjectWithTag("Player").transform;
         // Get the rigid body of the enemy

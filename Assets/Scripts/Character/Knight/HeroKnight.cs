@@ -270,7 +270,7 @@ public class HeroKnight : MonoBehaviour
         // Damage them
         foreach (var enemy in hitEnemies)
         {
-            enemy.GetComponent<Enemy>().TakeDamage(attackDamage);
+            enemy.GetComponent<Enemy1>().TakeDamage(attackDamage);
         }
     }
 

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy2 : MonoBehaviour
 {
     [SerializeField] private AudioClip[] damageSoundClips;
     public Animator animator;
@@ -25,6 +25,11 @@ public class Enemy : MonoBehaviour
         
         // Cache the sprite renderer and original color
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        if (animator == null)
+        {
+            animator = GetComponent<Animator>();
+        }
         if (spriteRenderer != null)
         {
             originalColor = spriteRenderer.color;
@@ -104,6 +109,11 @@ public class Enemy : MonoBehaviour
             FlipPlayer();
             isFlipped = true;
         }
+    }
+
+    public virtual void Damage()
+    {
+        Debug.Log(gameObject.name + "was damaged");
     }
 
     public void LookAtPlayer()

@@ -11,14 +11,14 @@ public class BOD_Walk : StateMachineBehaviour
 
     Transform player;
     Rigidbody2D rb;
-    Enemy boss;
+    Enemy1 boss;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
        player = GameObject.FindGameObjectWithTag("Player").transform;
        rb = animator.GetComponent<Rigidbody2D>();
-       boss = animator.GetComponent<Enemy>();
+       boss = animator.GetComponent<Enemy1>();
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

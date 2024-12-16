@@ -26,6 +26,9 @@ public class HeroGroundedState : HeroState
         if (Input.GetKeyDown(KeyCode.Mouse0))//GetKey,GetKeyUp
             stateMachine.ChangeState(hero.primaryAttack);
 
+        if (Input.GetKeyDown(KeyCode.Mouse1))
+            stateMachine.ChangeState(hero.counterAttack);
+
         if(!hero.IsGroundDetected())
             stateMachine.ChangeState(hero.airState);
         

@@ -17,6 +17,8 @@ public class HeroPrimaryAttackState : HeroState
     {
         base.Enter();
 
+        xInput = 0;// to make sure attackDir doesn't change
+
         if (comboCounter > 2 || Time.time >= lastTimeAttacked + comboWindow)
             comboCounter = 0;
 
