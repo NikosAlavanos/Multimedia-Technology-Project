@@ -15,8 +15,6 @@ public class Hero : Entity
     public float jumpForce = 12f;
 
     [Header("Roll info")]
-    [SerializeField] private float rollCooldown = 1f;
-    private float rollUsageTimer;
     public float rollSpeed = 25f;
     public float rollDuration = 0.2f;
     public float rollDir {  get; private set; }
@@ -87,11 +85,11 @@ public class Hero : Entity
         if(IsWallDetected())
             return;
 
-        rollUsageTimer -= Time.deltaTime;
+        
 
-        if (Input.GetKeyUp(KeyCode.LeftShift) && rollUsageTimer < 0)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && SkillManager.instance.roll.CanUseSkill())
         {
-            rollUsageTimer = rollCooldown;
+            
             rollDir = Input.GetAxisRaw("Horizontal");
 
             if (rollDir == 0)
