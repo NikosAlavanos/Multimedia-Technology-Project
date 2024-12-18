@@ -6,8 +6,14 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 5e1a20dee7fcac041ac45cf47ccd280c
+  - enabled: 1
     path: Assets/Scenes/FirstLevel.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/SecondLevel.unity
+    guid: 8d683b3c0d6724eb6b90558da23546be
   - enabled: 1
     path: Assets/Scenes/Bringer Of Death.unity
     guid: 0847f5f644c2d7148941ee092dd701bb
