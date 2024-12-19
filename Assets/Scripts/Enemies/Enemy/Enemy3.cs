@@ -12,14 +12,15 @@ public class Enemy3 : Entity
     protected bool canBeStunned;
     [SerializeField] protected GameObject counterImage;
 
-    [Header ("Move Info")]
+    [Header("Move Info")]
     public float moveSpeed;
     public float idleTime;
     public float battleTime;
+    private float defaultMoveSpeed;
 
     [Header("Attack Info")]
     public float attackDistance;
-    public float attackCooldowm;
+    public float attackCooldown;
     [HideInInspector] public float lastTimeAttacked;
 
     public EnemyStateMachine stateMachine { get; private set; }
@@ -29,6 +30,8 @@ public class Enemy3 : Entity
         base.Awake();
 
         stateMachine = new EnemyStateMachine();
+
+        defaultMoveSpeed = moveSpeed;
     }
 
     protected override void Update()
@@ -61,7 +64,16 @@ public class Enemy3 : Entity
         return false;
     }
 
-    //public virtual void AnimationFinishTrigger() => stateMachine.currentState.AnimationFinishTrigger();
+    public virtual void AnimationFinishTrigger() => stateMachine.currentState.AnimationFinishTrigger();
 
-    //public virtual RaycastHit2D IsHeroDetected() => Physics2D.Raycast(wallCheck.position, Vector2.right * facingDir, 50, whatIsHero);
+    public virtual RaycastHit2D IsHeroDetected() => Physics2D.Raycast(wallCheck.position, Vector2.right * facingDir, 50, whatIsHero);
+
+
+    protected override void OnDrawGizmos()
+    {
+        base.OnDrawGizmos();
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawLine(transform.position, new Vector3(transform.position.x + attackDistance * facingDir, transform.position.y));
+    }
 }

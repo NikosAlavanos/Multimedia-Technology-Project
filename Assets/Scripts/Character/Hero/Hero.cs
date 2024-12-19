@@ -19,6 +19,7 @@ public class Hero : Entity
     public float rollDuration = 0.2f;
     public float rollDir {  get; private set; }
 
+    public SkillManager skill { get; private set; }
     #region States
     public HeroStateMachine stateMachine { get; private set; }
 
@@ -33,6 +34,7 @@ public class Hero : Entity
 
     public HeroPrimaryAttackState primaryAttack { get; private set; }
     public HeroCounterAttackState counterAttack { get; private set; }
+    public HeroDeadState deadState { get; private set; }
     #endregion
 
     protected override void Awake()
@@ -51,22 +53,29 @@ public class Hero : Entity
 
         primaryAttack = new HeroPrimaryAttackState(this, stateMachine, "Attack");
         counterAttack = new HeroCounterAttackState(this, stateMachine, "CounterAttack");
+
+        deadState = new HeroDeadState(this, stateMachine, "Death");
     }
 
     protected override void Start()
     {
         base.Start();
 
+        skill = SkillManager.instance;
+
         stateMachine.Initialize(idleState);
     }
 
     protected override void Update()
     {
-        base .Update();
+        base.Update();
 
         stateMachine.currentState.Update();
 
         CheckForRollInput();
+
+        if (Input.GetKeyDown(KeyCode.Q))//TODO: comment it out
+            stateMachine.ChangeState(deadState);
     }
 
     public IEnumerator BusyFor(float _seconds)
@@ -82,7 +91,7 @@ public class Hero : Entity
 
     private void CheckForRollInput()
     {
-        if(IsWallDetected())
+        if (IsWallDetected())
             return;
 
         
@@ -97,5 +106,12 @@ public class Hero : Entity
 
             stateMachine.ChangeState(rollState);
         }
+    }
+
+    public override void Die()
+    {
+        base.Die();
+
+        stateMachine.ChangeState(deadState);
     }
 }

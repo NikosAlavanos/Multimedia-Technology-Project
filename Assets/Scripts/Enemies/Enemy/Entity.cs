@@ -1,18 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Accessibility;
 public class Entity : MonoBehaviour
 {
     #region Components
     public Animator anim { get; private set; }
     public Rigidbody2D rb { get; private set; }
     public EntityFX fx { get; private set; }
+    public SpriteRenderer sr { get; private set; }
+    public CharacterStats stats { get; private set; }
     #endregion
 
     [Header("Knockback info")]
     [SerializeField] protected Vector2 knockbackDirection;
-    [SerializeField] protected float knockbackDuration = .8f;
+    [SerializeField] protected float knockbackDuration;
     protected bool isKnocked;
 
     [Header("Collision info")]
@@ -34,9 +36,11 @@ public class Entity : MonoBehaviour
 
     protected virtual void Start()
     {
-        fx = GetComponent<EntityFX>();
         anim = GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        fx = GetComponent<EntityFX>();
+        sr = GetComponentInChildren<SpriteRenderer>();
+        stats = GetComponent<CharacterStats>();
     }
 
     protected virtual void Update()
@@ -44,7 +48,7 @@ public class Entity : MonoBehaviour
         
     }
 
-    public virtual void Damage()
+    public virtual void DamageEffect()
     {
         fx.StartCoroutine("FlashFX");
         StartCoroutine("HitKnockback");
@@ -64,7 +68,13 @@ public class Entity : MonoBehaviour
     }
 
     #region Velocity
-    public void ZeroVelocity() => rb.velocity = new Vector2(0, 0);
+    public void SetZeroVelocity()
+    {
+        if (isKnocked)
+            return;
+
+        rb.velocity = new Vector2(0, 0);
+    }
 
     public void SetVelocity(float _xVelocity, float _yVelocity)
     {
@@ -104,4 +114,17 @@ public class Entity : MonoBehaviour
             Flip();
     }
     #endregion
+
+    public void MakeTransprent(bool _transprent)
+    {
+        if (_transprent)
+            sr.color = Color.clear;
+        else
+            sr.color = Color.white;
+    }
+
+    public virtual void Die()
+    {
+
+    }
 }

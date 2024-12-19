@@ -18,11 +18,22 @@ public class HeroAnimationTriggers : MonoBehaviour
         foreach (var hit in colliders)
         {
             if (hit.GetComponent<Enemy3>() != null)//TODO: probably change it to the right script of the enmy
-                hit.GetComponent<Enemy3>().Damage();
-            else if(hit.GetComponent<Enemy1>() != null)
-                hit.GetComponent<Enemy1>().Damage();
-            else if(hit.GetComponent<Enemy2>() != null)
-                hit.GetComponent<Enemy2>().Damage();
+            {
+                EnemyStats _target = hit.GetComponent<EnemyStats>();
+
+                hero.stats.DoDamage(_target);
+                //hit.GetComponent<Enemy3>().Damage();
+            }
+            else if (hit.GetComponent<Enemy1>() != null)
+            {
+                hit.GetComponent<Enemy1>().Damage(); //TODO change script for Enemy, EnemyStats.cd
+                hit.GetComponent<CharacterStats>().TakeDamage(hero.stats.damage.GetValue());
+            }
+            else if (hit.GetComponent<Enemy2>() != null)
+            {
+                hit.GetComponent<Enemy2>().Damage(); //TODO change script for Enemy, EnemyStats.cd
+                hit.GetComponent<CharacterStats>().TakeDamage(hero.stats.damage.GetValue());
+            }
         }
     }
 }

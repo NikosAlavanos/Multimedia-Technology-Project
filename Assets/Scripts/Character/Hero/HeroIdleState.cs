@@ -12,7 +12,7 @@ public class HeroIdleState : HeroGroundedState
     {
         base.Enter();
 
-        hero.ZeroVelocity();
+        hero.SetZeroVelocity();
     }
 
     public override void Exit()
