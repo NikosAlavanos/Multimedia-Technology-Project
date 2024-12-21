@@ -25,7 +25,7 @@ public class HeroCounterAttackState : HeroState
     {
         base.Update();
 
-        //hero.SetZeroVelocity();//should make this method so he can't counter while moving
+        hero.SetZeroVelocity(); //should make this method so he can't counter while moving
 
         Collider2D[] colliders = Physics2D.OverlapCircleAll(hero.attackCheck.position, hero.attackCheckRadius);
 

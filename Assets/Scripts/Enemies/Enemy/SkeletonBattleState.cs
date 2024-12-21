@@ -20,7 +20,7 @@ public class SkeletonBattleState : EnemyState
 
         hero = HeroManager.instance.hero.transform;
 
-
+        Debug.Log("Its time to duel");
     }
 
     public override void Update()
@@ -39,7 +39,7 @@ public class SkeletonBattleState : EnemyState
         }
         else
         {
-            if (stateTimer < 0 || Vector2.Distance(hero.transform.position, enemy.transform.position) > 7)
+            if (stateTimer < 0 || Vector2.Distance(hero.transform.position, enemy.transform.position) > 6)
                 stateMachine.ChangeState(enemy.idleState);
         }
 

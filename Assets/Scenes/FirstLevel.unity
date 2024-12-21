@@ -3727,6 +3727,37 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7848003307580614585, guid: 377c46f1767bbe04d9a6110b5fb00688, type: 3}
   m_PrefabInstance: {fileID: 2104892070}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1090500769
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1090500770}
+  m_Layer: 8
+  m_Name: WallCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1090500770
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1090500769}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.216, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1776752735}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1125164199
 GameObject:
   m_ObjectHideFlags: 0
@@ -5688,6 +5719,7 @@ GameObject:
   - component: {fileID: 1619429277}
   - component: {fileID: 1619429279}
   - component: {fileID: 1619429278}
+  - component: {fileID: 1619429280}
   m_Layer: 8
   m_Name: Animator
   m_TagString: Untagged
@@ -5783,6 +5815,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1619429280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1619429276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 234d72b2667f0704b9c77be19fbceb6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1660790003
 GameObject:
   m_ObjectHideFlags: 0
@@ -13910,7 +13954,7 @@ MonoBehaviour:
   attackCheckRadius: 0.9
   groundCheck: {fileID: 1732525388}
   groundCheckDistance: 0.4
-  wallCheck: {fileID: 1776752735}
+  wallCheck: {fileID: 1090500770}
   wallCheckDistance: 0.8
   whatIsGround:
     serializedVersion: 2
@@ -13921,11 +13965,11 @@ MonoBehaviour:
   stunDuration: 1
   stunDirection: {x: 10, y: 12}
   counterImage: {fileID: 0}
-  moveSpeed: 1.5
+  moveSpeed: 2
   idleTime: 2
-  battleTime: 0
-  attackDistance: 0
-  attackCooldown: 0
+  battleTime: 4
+  attackDistance: 2
+  attackCooldown: 0.4
   lastTimeAttacked: 0
 --- !u!4 &1776752735
 Transform:
@@ -13936,13 +13980,14 @@ Transform:
   m_GameObject: {fileID: 1776752733}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 26.59, y: 1.81, z: 0}
+  m_LocalPosition: {x: 26.59, y: 1.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1619429277}
   - {fileID: 1732525388}
   - {fileID: 1702888041}
+  - {fileID: 1090500770}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1776752736
