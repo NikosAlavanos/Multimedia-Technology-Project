@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml;
 using UnityEngine;
 
 public class Enemy3 : Entity
@@ -25,6 +26,9 @@ public class Enemy3 : Entity
 
     public EnemyStateMachine stateMachine { get; private set; }
 
+    public string lastAnimBoolName {  get; private set; }
+
+
     protected override void Awake()
     {
         base.Awake();
@@ -39,6 +43,11 @@ public class Enemy3 : Entity
         base.Update();
 
         stateMachine.currentState.Update();
+    }
+
+    public virtual void AssignLastAnimName(string _animBoolName)
+    {
+        lastAnimBoolName = _animBoolName;
     }
 
     public virtual void OpenCounterAttackWindow()
@@ -63,6 +72,8 @@ public class Enemy3 : Entity
 
         return false;
     }
+
+    
 
     public virtual void AnimationFinishTrigger() => stateMachine.currentState.AnimationFinishTrigger();
 

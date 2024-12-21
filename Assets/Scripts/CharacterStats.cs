@@ -1,7 +1,23 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+public enum StatType
+{
+    strength,
+    agility,
+    intelegence,
+    vitality,
+    damage,
+    critChance,
+    critPower,
+    health,
+    armor,
+    evasion,
+    magicRes,
+    fireDamage,
+    iceDamage,
+    lightingDamage
+}
 
 public class CharacterStats : MonoBehaviour
 {

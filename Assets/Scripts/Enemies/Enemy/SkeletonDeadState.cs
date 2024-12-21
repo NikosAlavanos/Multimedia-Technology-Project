@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HeroDeadState : HeroState
+public class SkeletonDeadState : EnemyState
 {
-    public HeroDeadState(Hero _hero, HeroStateMachine _stateMachine, string _animBoolName) : base(_hero, _stateMachine, _animBoolName)
+    public SkeletonDeadState(Enemy3 _enemyBase, EnemyStateMachine _stateMachine, string _animBoolName) : base(_enemyBase, _stateMachine, _animBoolName)
     {
     }
 
@@ -26,7 +26,5 @@ public class HeroDeadState : HeroState
     public override void Update()
     {
         base.Update();
-
-        hero.SetZeroVelocity();
     }
 }

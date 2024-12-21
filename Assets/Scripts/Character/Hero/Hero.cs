@@ -15,8 +15,8 @@ public class Hero : Entity
     public float jumpForce = 12f;
 
     [Header("Roll info")]
-    public float rollSpeed = 25f;
-    public float rollDuration = 0.2f;
+    public float rollSpeed;
+    public float rollDuration;
     public float rollDir {  get; private set; }
 
     public SkillManager skill { get; private set; }

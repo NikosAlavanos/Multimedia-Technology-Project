@@ -22,7 +22,6 @@ public class HeroAnimationTriggers : MonoBehaviour
                 EnemyStats _target = hit.GetComponent<EnemyStats>();
 
                 hero.stats.DoDamage(_target);
-                //hit.GetComponent<Enemy3>().Damage();
             }
             else if (hit.GetComponent<Enemy1>() != null)
             {

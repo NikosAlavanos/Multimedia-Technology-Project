@@ -15,7 +15,7 @@ public class itemObject : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.GetComponent<HeroKnight>() != null)
+        if (collision.GetComponent<Hero>() != null)
         {
             Inventory.instance.AddItem(itemData);
             Destroy(gameObject);

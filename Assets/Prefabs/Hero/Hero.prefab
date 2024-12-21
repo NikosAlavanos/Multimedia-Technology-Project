@@ -115,7 +115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   knockbackDirection: {x: 0, y: 0}
-  knockbackDuration: 0.8
+  knockbackDuration: 0
   attackCheck: {fileID: 608783668087587115}
   attackCheckRadius: 1.1
   groundCheck: {fileID: 1254771722209120239}

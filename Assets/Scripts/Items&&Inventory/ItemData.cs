@@ -1,3 +1,5 @@
+using UnityEditor;
+using UnityEditor.VersionControl;
 using UnityEngine;
 
 public enum ItemType
