@@ -2,28 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HeroStats : CharacterStats
+public class EnemyStats : CharacterStats
 {
-    private Hero hero;
+    private Enemy3 enemy;//TODO: change the script
 
     protected override void Start()
     {
         base.Start();
 
-        hero = GetComponent<Hero>();
+        enemy = GetComponent<Enemy3>();
     }
 
     public override void TakeDamage(int _damage)
     {
         base.TakeDamage(_damage);
-
-        hero.DamageEffect();
     }
 
     protected override void Die()
     {
         base.Die();
 
-        hero.Die();
+        enemy.Die();
     }
 }
