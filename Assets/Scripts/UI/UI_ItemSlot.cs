@@ -42,7 +42,7 @@ public class UI_ItemSlot : MonoBehaviour , IPointerDownHandler
         itemText.text = "";
     }
 
-    public void OnPointerDown(PointerEventData eventData) //its called whenever you use your pointer down on this object that has this Interface
+    public virtual void OnPointerDown(PointerEventData eventData) //its called whenever you use your pointer down on this object that has this Interface
     {
         if (item.data.itemType == ItemType.Equipment)
             Inventory.instance.EquipItem(item.data);

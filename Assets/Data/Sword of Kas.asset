@@ -16,3 +16,17 @@ MonoBehaviour:
   itemName: Sword of Kas
   icon: {fileID: -460413151, guid: 6eb16e372762d6b4cb708c44ebfab931, type: 3}
   equipmentType: 0
+  strength: 11
+  agility: 11
+  intelligence: 6
+  vitality: 0
+  damage: 16
+  critChance: 16
+  critPower: 0
+  health: 0
+  armor: 0
+  evasion: 7
+  magicResistance: 7
+  fireDamage: 15
+  iceDamage: 15
+  lightingDamage: 15
