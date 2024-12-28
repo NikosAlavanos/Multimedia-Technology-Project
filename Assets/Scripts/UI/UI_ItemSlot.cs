@@ -17,7 +17,7 @@ public class UI_ItemSlot : MonoBehaviour , IPointerDownHandler
 
         itemImage.color = Color.white;
 
-        if (itemImage != null)
+        if (item != null)
         {
             itemImage.sprite = item.data.icon; //assigning sprite of the image to the icon of the item
 

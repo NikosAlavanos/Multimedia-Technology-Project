@@ -1,10 +1,12 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
     public static Inventory instance;
+
+    public List<ItemData> startingItems;
 
     public List<InventoryItem> equipment;
     public Dictionary<ItemData_Equipment, InventoryItem> equipmentDictionary;
@@ -23,6 +25,13 @@ public class Inventory : MonoBehaviour
     private UI_ItemSlot[] inventoryItemSlot;
     private UI_ItemSlot[] stashItemSlot;
     private UI_EquipmentSlot[] equipmentSlot;
+
+    //[Header("Items cooldown")]
+    //private float lastTimeUsedFlask;
+    //private float lastTimeUsedArmor;
+
+    //private float flaskCooldown;
+    //private float armorCooldown;
 
     private void Awake()
     {
@@ -187,4 +196,91 @@ public class Inventory : MonoBehaviour
 
         UpdateSlotUI();
     }
+
+    public bool CanCraft(ItemData_Equipment _itemToCraft, List<InventoryItem> _requiredMaterials)
+    {
+        List<InventoryItem> materialsToRemove = new List<InventoryItem>();
+
+        for (int i = 0; i < _requiredMaterials.Count; i++)
+        {
+            if (stashDictionary.TryGetValue(_requiredMaterials[i].data, out InventoryItem stashValue))
+            {
+                if (stashValue.stackSize < _requiredMaterials[i].stackSize)
+                {
+                    Debug.Log("not enough materials");
+                    return false;
+                }
+                else
+                {
+                    materialsToRemove.Add(stashValue);
+                }
+            }
+            else
+            {
+                Debug.Log("not enough materials");
+                return false;
+            }
+        }
+
+        for (int i = 0; i < materialsToRemove.Count; i++)
+        {
+            RemoveItem(materialsToRemove[i].data);
+        }
+
+        AddItem(_itemToCraft);
+        Debug.Log("You created " + _itemToCraft.name);
+
+        return true;
+    }
+
+    //public List<InventoryItem> GetEquipmentList() => equipment;
+
+    //public List<InventoryItem> GetStashList() => stash;
+
+    //public ItemData_Equipment GetEquipment(EquipmentType _type)
+    //{
+    //    ItemData_Equipment equipedItem = null;
+
+    //    foreach (KeyValuePair<ItemData_Equipment, InventoryItem> item in equipmentDictionary)
+    //    {
+    //        if (item.Key.equipmentType == _type)
+    //            equipedItem = item.Key;
+    //    }
+
+    //    return equipedItem;
+    //}
+
+    //public void UseFlask()
+    //{
+    //    ItemData_Equipment currentFlask = GetEquipment(EquipmentType.Flask);
+
+    //    if (currentFlask == null)
+    //        return;
+
+    //    bool canUseFlask = Time.time > lastTimeUsedFlask + flaskCooldown;
+
+    //    if (canUseFlask)
+    //    {
+    //        flaskCooldown = currentFlask.itemCooldown;
+    //        currentFlask.Effect(null);
+    //        lastTimeUsedFlask = Time.time;
+    //    }
+    //    else
+    //        Debug.Log("Flask on cooldown;");
+    //}
+
+    //public bool CanUseArmor()
+    //{
+    //    ItemData_Equipment currentArmor = GetEquipment(EquipmentType.Armor);
+
+    //    if (Time.time > lastTimeUsedArmor + armorCooldown)
+    //    {
+    //        armorCooldown = currentArmor.itemCooldown;
+    //        lastTimeUsedArmor = Time.time;
+    //        return true;
+    //    }
+
+    //    Debug.Log("Armor on cooldown");
+    //    return false;
+    //}
 }

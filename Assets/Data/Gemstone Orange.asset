@@ -15,3 +15,4 @@ MonoBehaviour:
   itemType: 0
   itemName: Gemstone Orange
   icon: {fileID: 21300000, guid: 451b886711f73a54ab4aa44b22a2378c, type: 3}
+  dropChance: 60.6

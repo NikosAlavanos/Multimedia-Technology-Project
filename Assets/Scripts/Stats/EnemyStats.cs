@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyStats : CharacterStats
 {
     private Enemy3 enemy;//TODO: change the script
+    private ItemDrop myDropSystem;
 
     [Header("Level Details")]
     [SerializeField] private int level = 1;
@@ -19,6 +20,7 @@ public class EnemyStats : CharacterStats
         base.Start();
 
         enemy = GetComponent<Enemy3>();
+        myDropSystem = GetComponent<ItemDrop>();
     }
 
     private void ApplyLevelModifiers() //remove comments if we wanna change the modifiers on some enemies ex. Boss
@@ -62,5 +64,7 @@ public class EnemyStats : CharacterStats
         base.Die();
 
         enemy.Die();
+
+        myDropSystem.GenerateDrop();
     }
 }

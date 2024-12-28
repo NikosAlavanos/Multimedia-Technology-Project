@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public enum EquipmentType
@@ -13,6 +15,9 @@ public enum EquipmentType
 public class ItemData_Equipment : ItemData
 {
     public EquipmentType equipmentType;
+
+    //public float itemCooldown;
+    //public ItemEffect[] itemEffects;
 
     [Header("Core stats")]
     public int strength;
@@ -35,6 +40,10 @@ public class ItemData_Equipment : ItemData
     public int fireDamage;
     public int iceDamage;
     public int lightingDamage;
+
+    [Header("Craft Requirments")]
+    public List<InventoryItem> craftingMaterials;
+
     public void AddModifiers()
     {
         HeroStats heroStats = HeroManager.instance.hero.GetComponent<HeroStats>();

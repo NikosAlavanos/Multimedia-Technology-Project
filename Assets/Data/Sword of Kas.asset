@@ -15,6 +15,7 @@ MonoBehaviour:
   itemType: 1
   itemName: Sword of Kas
   icon: {fileID: -460413151, guid: 6eb16e372762d6b4cb708c44ebfab931, type: 3}
+  dropChance: 0.7
   equipmentType: 0
   strength: 11
   agility: 11
@@ -30,3 +31,8 @@ MonoBehaviour:
   fireDamage: 15
   iceDamage: 15
   lightingDamage: 15
+  craftingMaterials:
+  - data: {fileID: 11400000, guid: 498b2b71622c70a4e9fcce6daa2f7d17, type: 2}
+    stackSize: 1
+  - data: {fileID: 11400000, guid: 9bc24d7b2d02f0e4d889b7fe71196bb9, type: 2}
+    stackSize: 1
