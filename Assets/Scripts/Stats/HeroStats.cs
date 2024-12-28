@@ -23,5 +23,7 @@ public class HeroStats : CharacterStats
         base.Die();
 
         hero.Die();
+
+        GetComponent<HeroItemDrop>()?.GenerateDrop();//checking first if it is null
     }
 }

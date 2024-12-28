@@ -55,8 +55,17 @@ public class Inventory : MonoBehaviour
         inventoryItemSlot = inventorySlotParent.GetComponentsInChildren<UI_ItemSlot>(); //it will fill up UI_ItemSlot array and fill it up with chieldren of inventorySloParent
         stashItemSlot = stashSlotParent.GetComponentsInChildren<UI_ItemSlot>();
         equipmentSlot = equipmentSlotParent.GetComponentsInChildren<UI_EquipmentSlot>();
+        AddStartingItems();
     }
-    
+
+    private void AddStartingItems()
+    {
+        for (int i = 0; i < startingItems.Count; i++)
+        {
+            AddItem(startingItems[i]);
+        }
+    }
+
     public void EquipItem(ItemData _item)
     {
         ItemData_Equipment newEquipment = _item as ItemData_Equipment;
@@ -233,22 +242,22 @@ public class Inventory : MonoBehaviour
         return true;
     }
 
-    //public List<InventoryItem> GetEquipmentList() => equipment;
+    public List<InventoryItem> GetEquipmentList() => equipment;
 
-    //public List<InventoryItem> GetStashList() => stash;
+    public List<InventoryItem> GetStashList() => stash;
 
-    //public ItemData_Equipment GetEquipment(EquipmentType _type)
-    //{
-    //    ItemData_Equipment equipedItem = null;
+    public ItemData_Equipment GetEquipment(EquipmentType _type)
+    {
+        ItemData_Equipment equipedItem = null;
 
-    //    foreach (KeyValuePair<ItemData_Equipment, InventoryItem> item in equipmentDictionary)
-    //    {
-    //        if (item.Key.equipmentType == _type)
-    //            equipedItem = item.Key;
-    //    }
+        foreach (KeyValuePair<ItemData_Equipment, InventoryItem> item in equipmentDictionary)
+        {
+            if (item.Key.equipmentType == _type)
+                equipedItem = item.Key;
+        }
 
-    //    return equipedItem;
-    //}
+        return equipedItem;
+    }
 
     //public void UseFlask()
     //{
