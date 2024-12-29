@@ -16,8 +16,8 @@ public class ItemData_Equipment : ItemData
 {
     public EquipmentType equipmentType;
 
-    //public float itemCooldown;
-    //public ItemEffect[] itemEffects;
+    public float itemCooldown;
+    public ItemEffect[] itemEffects;
 
     [Header("Core stats")]
     public int strength;
@@ -43,6 +43,14 @@ public class ItemData_Equipment : ItemData
 
     [Header("Craft Requirments")]
     public List<InventoryItem> craftingMaterials;
+
+    public void Effect(Transform _enemyPosition)
+    {
+        foreach (var item in itemEffects)
+        {
+            item.ExecuteEffect(_enemyPosition);
+        }
+    }
 
     public void AddModifiers()
     {

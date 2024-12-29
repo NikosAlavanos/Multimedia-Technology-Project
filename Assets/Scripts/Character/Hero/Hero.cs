@@ -76,6 +76,9 @@ public class Hero : Entity
 
         if (Input.GetKeyDown(KeyCode.Q))//TODO: comment it out
             stateMachine.ChangeState(deadState);
+
+        if (Input.GetKeyDown(KeyCode.E))
+            Inventory.instance.UseFlask();
     }
 
     public IEnumerator BusyFor(float _seconds)

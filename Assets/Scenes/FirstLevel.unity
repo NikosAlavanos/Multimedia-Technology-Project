@@ -2965,8 +2965,8 @@ MonoBehaviour:
   possibleItemDrop: 0
   possibleDrop: []
   dropPrefab: {fileID: 8556201081357715731, guid: d52f77050fce51442bbce17da865ca3d, type: 3}
-  chanceToLooseItems: 99
-  chanceToLooseMaterials: 99
+  chanceToLooseItems: 25
+  chanceToLooseMaterials: 69
 --- !u!1 &905203541 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3993591989633914245, guid: 2cd08ecdaf9d44a1a921c9565665b0f8, type: 3}
@@ -4039,6 +4039,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: cfb5f146bd79d204e93179e059b2d6ac, type: 2}
   - {fileID: 11400000, guid: 849ee5598b4ec7c4193ba8f12f687169, type: 2}
   - {fileID: 11400000, guid: b40f82997aa8b18489685204a23fd984, type: 2}
+  - {fileID: 11400000, guid: 002836d7a53f76d45ba89d3f1f520409, type: 2}
   equipment: []
   inventory: []
   stash: []
