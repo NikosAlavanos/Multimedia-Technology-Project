@@ -4,23 +4,23 @@ using UnityEngine;
 
 public class BackgroundController : MonoBehaviour
 {
-
-    private float startPos;
+    private Vector2 startPos; // Store both x and y starting positions
     public GameObject cam;
-    public float parallaxEffect; // The speed at which the background should move relative to the camera
+    public Vector2 parallaxEffect; // A Vector2 to specify parallax effects for both x and y axes
 
     // Start is called before the first frame update
     void Start()
     {
-        startPos = transform.position.x;
+        startPos = new Vector2(transform.position.x, transform.position.y);
     }
 
     // Update is called once per frame
     void Update()
     {
-        // Calculate distance background move based on cam movement
-        var distance = cam.transform.position.x * parallaxEffect; // 0 = move with cam || 1 = won't move || 0.5 = half
+        // Calculate distance background moves based on cam movement
+        var distanceX = cam.transform.position.x * parallaxEffect.x;
+        var distanceY = cam.transform.position.y * parallaxEffect.y;
 
-        transform.position = new Vector3(startPos + distance, transform.position.y, transform.position.z);
+        transform.position = new Vector3(startPos.x + distanceX, startPos.y + distanceY, transform.position.z);
     }
 }

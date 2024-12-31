@@ -770,7 +770,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 396605366}
-  parallaxEffect: 0.7
+  parallaxEffect: {x: 0, y: 0}
 --- !u!1 &191169822
 GameObject:
   m_ObjectHideFlags: 0
@@ -2131,7 +2131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 396605366}
-  parallaxEffect: 0.53
+  parallaxEffect: {x: 0, y: 0}
 --- !u!224 &613072753 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7848003307580614585, guid: 377c46f1767bbe04d9a6110b5fb00688, type: 3}
@@ -2254,7 +2254,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4263309486836770221, guid: 824354745545e9f4390930671a3593d4, type: 3}
       propertyPath: maxHealth.baseValue
-      value: 75
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 5619536161227687171, guid: 824354745545e9f4390930671a3593d4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -40435,7 +40435,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 396605366}
-  parallaxEffect: 1
+  parallaxEffect: {x: 1, y: 1}
 --- !u!224 &2053390269 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7848003307580614585, guid: 377c46f1767bbe04d9a6110b5fb00688, type: 3}
