@@ -28,6 +28,6 @@ public class DeathMenuManager : MonoBehaviour
     public void QuitGame()
     {
         Time.timeScale = 1f; // Ensure time is resumed before quitting
-        Application.Quit();
+        SceneManager.LoadScene("MainMenu");
     }
 }
