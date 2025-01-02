@@ -16,6 +16,19 @@ public class HeroDeadState : HeroState
     public override void Enter()
     {
         base.Enter();
+        
+        Debug.Log("HeroDeadState Enter Called");
+
+        DeathMenuManager deathMenu = GameObject.FindObjectOfType<DeathMenuManager>();
+        if (deathMenu != null)
+        {
+            Debug.Log("DeathMenu Found, Showing Menu");
+            deathMenu.ShowDeathMenuManager();
+        }
+        else
+        {
+            Debug.LogError("DeathMenu Not Found in Scene");
+        }
     }
 
     public override void Exit()
