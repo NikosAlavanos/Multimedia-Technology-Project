@@ -1,28 +1,49 @@
+using Cinemachine;
 using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class EntityFX : MonoBehaviour
 {
-    private SpriteRenderer sr;
+    protected Hero hero;
+    protected SpriteRenderer sr;
 
+    
     [Header("Flash FX")]
     [SerializeField] private float flashDuration = .2f;
     [SerializeField] private Material hitMaterial;
     private Material originalMaterial;
 
-    private void Start()
+    //[Header("Hit FX")]
+    //[SerializeField] private GameObject hitFx;
+    //[SerializeField] private GameObject criticalHitFx;
+
+    private GameObject myHealthBar;
+
+    protected virtual void Start()
     {
         sr = GetComponentInChildren<SpriteRenderer>();
+        hero = HeroManager.instance.hero;
+
         originalMaterial = sr.material;
+
+        myHealthBar = GetComponentInChildren<UI_HealthBar>(true).gameObject;
     }
+
 
     public void MakeTransprent(bool _transprent)
     {
         if (_transprent)
+        {
+            myHealthBar.SetActive(false);
             sr.color = Color.clear;
+        }
         else
+        {
+            myHealthBar.SetActive(true);
             sr.color = Color.white;
+        }
     }
 
     private IEnumerator FlashFX()

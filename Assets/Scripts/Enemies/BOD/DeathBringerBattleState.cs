@@ -2,17 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SkeletonBattleState : EnemyState
+public class DeathBringerBattleState : EnemyState
 {
+    private Enemy_DeathBringer enemy;
     private Transform hero;
-    private Enemy_Skeleton enemy;
     private int moveDir;
 
-    private bool flippedOnce;
-
-    public SkeletonBattleState(Enemy3 _enemyBase, EnemyStateMachine _stateMachine, string _animBoolName, Enemy_Skeleton _enemy) : base(_enemyBase, _stateMachine, _animBoolName)
+    public DeathBringerBattleState(Enemy3 _enemyBase, EnemyStateMachine _stateMachine, string _animBoolName, Enemy_DeathBringer _enemy) : base(_enemyBase, _stateMachine, _animBoolName)
     {
-        this.enemy = _enemy;
+        enemy = _enemy;
     }
 
     public override void Enter()
@@ -21,11 +19,10 @@ public class SkeletonBattleState : EnemyState
 
         hero = HeroManager.instance.hero.transform;
 
-        if (hero.GetComponent<HeroStats>().isDead)
-            stateMachine.ChangeState(enemy.moveState);
+        //if (hero.GetComponent<HeroStats>().isDead)
+        //stateMachine.ChangeState(enemy.moveState);
 
-        stateTimer = enemy.battleTime;
-        flippedOnce = false;
+
     }
 
     public override void Update()
@@ -40,29 +37,18 @@ public class SkeletonBattleState : EnemyState
             {
                 if (CanAttack())
                     stateMachine.ChangeState(enemy.attackState);
+                else
+                    stateMachine.ChangeState(enemy.idleState);
             }
         }
-        else
-        {
-            if (flippedOnce == false)
-            {
-                flippedOnce = true;
-                enemy.Flip();
-            }
-
-            if (stateTimer < 0 || Vector2.Distance(hero.transform.position, enemy.transform.position) > 6)
-                stateMachine.ChangeState(enemy.idleState);
-        }
-
-        float distanceToHeroX = Mathf.Abs(hero.position.x - enemy.transform.position.x);
-
-        if(distanceToHeroX < .8f)
-            return;
 
         if (hero.position.x > enemy.transform.position.x)
             moveDir = 1;
         else if (hero.position.x < enemy.transform.position.x)
             moveDir = -1;
+
+        if (enemy.IsHeroDetected() && enemy.IsHeroDetected().distance < enemy.attackDistance - .1f)
+            return;
 
         enemy.SetVelocity(enemy.moveSpeed * moveDir, rb.velocity.y);
     }

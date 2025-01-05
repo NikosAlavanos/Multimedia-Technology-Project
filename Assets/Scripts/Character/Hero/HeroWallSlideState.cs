@@ -22,6 +22,9 @@ public class HeroWallSlideState : HeroState
     {
         base.Update();
 
+        if(hero.IsWallDetected() == false)
+            stateMachine.ChangeState(hero.airState);
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             stateMachine.ChangeState(hero.wallJump);

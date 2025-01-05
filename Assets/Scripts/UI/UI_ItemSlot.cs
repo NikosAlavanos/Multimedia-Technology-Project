@@ -44,6 +44,10 @@ public class UI_ItemSlot : MonoBehaviour , IPointerDownHandler
 
     public virtual void OnPointerDown(PointerEventData eventData) //its called whenever you use your pointer down on this object that has this Interface
     {
+        Debug.Log($"OnPointerDown called. Item: {item}, Item Data: {item?.data}");
+        if (item == null || item.data == null) // Prevent null reference errors
+            return;
+
         if (Input.GetKey(KeyCode.LeftAlt))
         {
             Inventory.instance.RemoveItem(item.data);

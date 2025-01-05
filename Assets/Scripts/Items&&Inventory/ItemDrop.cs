@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ItemDrop : MonoBehaviour
@@ -12,29 +13,29 @@ public class ItemDrop : MonoBehaviour
 
     public virtual void GenerateDrop()
     {
-        for (int i = 0; i < possibleDrop.Length; i++)
+        if (possibleDrop.Length == 0)
         {
-            if (Random.Range(0, 100) <= possibleDrop[i].dropChance)
-            {
-                dropList.Add(possibleDrop[i]);
-                Debug.Log("Added item to drop list: " + possibleDrop[i].itemName);
-            }
-        }
-
-        if (dropList.Count == 0)
-        {
-            Debug.LogWarning("No items were added to the drop list.");
+            Debug.Log("Item Pool is empty. Enemy cannot drop items.");
             return;
         }
 
-        int itemsToDrop = Mathf.Min(possibleItemDrop, dropList.Count);
 
-        for (int i = 0; i < itemsToDrop; i++)
+        foreach (ItemData item in possibleDrop)
         {
-            ItemData randomItem = dropList[Random.Range(0, dropList.Count)];
-            dropList.Remove(randomItem);
-            Debug.Log("Dropping item: " + randomItem.itemName);
-            DropItem(randomItem);
+            if (item != null && Random.Range(0, 100) < item.dropChance)
+                dropList.Add(item);
+        }
+
+        for (int i = 0; i < possibleItemDrop; i++)
+        {
+            if (dropList.Count > 0)
+            {
+                int randomIndex = Random.Range(0, dropList.Count);
+                ItemData itemToDrop = dropList[randomIndex];
+
+                DropItem(itemToDrop);
+                dropList.Remove(itemToDrop);
+            }
         }
     }
 

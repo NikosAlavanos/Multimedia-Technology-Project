@@ -14,6 +14,7 @@ public class HeroRollState : HeroState
 
         stateTimer = hero.rollDuration;
 
+        hero.stats.MakeInvincible(true);
     }
 
     public override void Exit()
@@ -21,6 +22,8 @@ public class HeroRollState : HeroState
         base.Exit();
 
         hero.SetVelocity(0,rb.velocity.y);
+
+        hero.stats.MakeInvincible(false);
     }
 
     public override void Update()

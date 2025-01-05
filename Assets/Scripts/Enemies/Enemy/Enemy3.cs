@@ -3,13 +3,19 @@ using System.Collections.Generic;
 using System.Xml;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(CapsuleCollider2D))]
+[RequireComponent(typeof(EnemyStats))]
+[RequireComponent(typeof(EntityFX))]
+[RequireComponent(typeof(ItemDrop))]
+
 public class Enemy3 : Entity
 {
     [SerializeField] protected LayerMask whatIsHero;
 
     [Header("Stunned Info")]
-    public float stunDuration;
-    public Vector2 stunDirection;
+    public float stunDuration = 1;
+    public Vector2 stunDirection = new Vector2(10, 12);
     protected bool canBeStunned;
     [SerializeField] protected GameObject counterImage;
 
@@ -20,11 +26,16 @@ public class Enemy3 : Entity
     private float defaultMoveSpeed;
 
     [Header("Attack Info")]
-    public float attackDistance;
+    public float agroDistance = 2;
+    public float attackDistance = 2;
     public float attackCooldown;
+    public float minAttackCooldown = 1;
+    public float maxAttackCooldown = 2;
     [HideInInspector] public float lastTimeAttacked;
 
     public EnemyStateMachine stateMachine { get; private set; }
+
+    private Hero hero;
 
     public string lastAnimBoolName {  get; private set; }
 
@@ -36,6 +47,13 @@ public class Enemy3 : Entity
         stateMachine = new EnemyStateMachine();
 
         defaultMoveSpeed = moveSpeed;
+    }
+
+    protected override void Start()
+    {
+        base.Start();
+
+        //fx = GetComponent<EntityFX>();
     }
 
     protected override void Update()
@@ -76,6 +94,11 @@ public class Enemy3 : Entity
     
 
     public virtual void AnimationFinishTrigger() => stateMachine.currentState.AnimationFinishTrigger();
+
+    public virtual void AnimationSpecialAttackTrigger()
+    {
+
+    }
 
     public virtual RaycastHit2D IsHeroDetected() => Physics2D.Raycast(wallCheck.position, Vector2.right * facingDir, 50, whatIsHero);
 
