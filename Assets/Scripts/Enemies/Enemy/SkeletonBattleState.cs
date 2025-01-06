@@ -70,6 +70,9 @@ public class SkeletonBattleState : EnemyState
     public override void Exit()
     {
         base.Exit();
+
+        // Ensure Counter Image is deactivated when exiting this state
+        enemy.CloseCounterAttackWindow();
     }
 
     private bool CanAttack()

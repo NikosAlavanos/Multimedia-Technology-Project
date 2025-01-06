@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class SkeletonAttackState : EnemyState
 {
@@ -21,6 +22,9 @@ public class SkeletonAttackState : EnemyState
         base.Exit();
 
         enemy.lastTimeAttacked = Time.time;
+
+        // Ensure Counter Image is deactivated when exiting this state
+        enemy.CloseCounterAttackWindow();
     }
 
     public override void Update()

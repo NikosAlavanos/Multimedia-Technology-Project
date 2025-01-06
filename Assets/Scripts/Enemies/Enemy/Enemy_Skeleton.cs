@@ -55,6 +55,9 @@ public class Enemy_Skeleton : Enemy3
     {
         base.Die();
 
+        // Ensure Counter Image is deactivated
+        CloseCounterAttackWindow();
+
         stateMachine.ChangeState(deadState);//TODO: maybe change it so it doesnt get knocked
     }
 }

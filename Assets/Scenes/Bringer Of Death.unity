@@ -15852,6 +15852,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2373221220020790924, guid: 8d206c6f8ba468f4eb84e0bd9815a404, type: 3}
+      propertyPath: damage.baseValue
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 2373221220020790924, guid: 8d206c6f8ba468f4eb84e0bd9815a404, type: 3}
+      propertyPath: strength.baseValue
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 8441672224769354241, guid: 8d206c6f8ba468f4eb84e0bd9815a404, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
