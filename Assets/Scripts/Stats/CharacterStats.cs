@@ -1,10 +1,16 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class CharacterStats : MonoBehaviour
 {
     private EntityFX fx;
 
+    [SerializeField] private AudioSource audioSource; // The AudioSource component
+    [SerializeField] private AudioClip[] damageSounds; // Array of damage sound effects
+    [SerializeField] private AudioMixerGroup soundFxGroup; // Reference to the SoundFx group in the mixer
+
+    
     [Header("Major stats")]
     public Stat strength;
     public Stat agility;
@@ -40,6 +46,12 @@ public class CharacterStats : MonoBehaviour
         currentHealth = GetMaxHealthValue();
 
         fx = GetComponent<EntityFX>();
+        
+        // Assign the AudioMixerGroup to the AudioSource's output
+        if (audioSource != null && soundFxGroup != null)
+        {
+            audioSource.outputAudioMixerGroup = soundFxGroup;
+        }
     }
 
     public virtual void IncreaseStatBy(int _modifier, float _duration, Stat _statToModify)
@@ -81,6 +93,8 @@ public class CharacterStats : MonoBehaviour
         if(isInvincible)
             return;
 
+        PlayRandomDamageSound();
+        
         DecreaseHealthBy(_damage);
 
         GetComponent<Entity>().DamageImpact();
@@ -88,6 +102,16 @@ public class CharacterStats : MonoBehaviour
 
         if (currentHealth < 0 && !isDead)
             Die();
+    }
+    
+    private void PlayRandomDamageSound()
+    {
+        if (damageSounds.Length > 0)
+        {
+            int randomIndex = Random.Range(0, damageSounds.Length);
+            AudioClip randomClip = damageSounds[randomIndex];
+            audioSource.PlayOneShot(randomClip);
+        }
     }
 
     public virtual void IncreaseHealthBy(int _amount)
