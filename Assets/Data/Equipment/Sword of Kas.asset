@@ -15,8 +15,10 @@ MonoBehaviour:
   itemType: 1
   itemName: Sword of Kas
   icon: {fileID: -460413151, guid: 6eb16e372762d6b4cb708c44ebfab931, type: 3}
-  dropChance: 0.7
+  dropChance: 9.6
   equipmentType: 0
+  itemCooldown: 0
+  itemEffects: []
   strength: 11
   agility: 11
   intelligence: 6
