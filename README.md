@@ -1,5 +1,8 @@
 # **Crown of Echoes** ⚔️🎮  
 
+## **Trailer** [<a href="https://youtu.be/LyxNzJuXSfU">Youtube</a>]
+
+
 ## **Overview**  
 
 **Crown of Echoes** is a **2D action RPG** developed in **Unity**, featuring dynamic combat mechanics, a modular inventory system, and AI-driven enemy behaviors. Players embark on an adventure to battle formidable foes, utilize powerful skills, and ultimately face the **Bringer of Death**, the final boss.  
