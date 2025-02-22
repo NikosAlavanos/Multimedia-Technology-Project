@@ -1,6 +1,7 @@
 # **Crown of Echoes** ⚔️🎮  
 
-## **Trailer** [<a href="https://youtu.be/LyxNzJuXSfU">Youtube</a>]
+## **Trailer**
+[![Watch the trailer](https://img.youtube.com/vi/LyxNzJuXSfU/0.jpg)](https://youtu.be/LyxNzJuXSfU)
 
 
 ## **Overview**  
